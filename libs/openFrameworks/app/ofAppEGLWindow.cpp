@@ -1889,7 +1889,7 @@ bool ofAppEGLWindow::createRPiNativeWindow(const ofRectangle& requestedWindowRec
 	src_rect.height = dst_rect.height << 16;
 
 	memset(&dispman_alpha, 0x0, sizeof(VC_DISPMANX_ALPHA_T)); // zero dispman_alpha
-	dispman_alpha.flags = DISPMANX_FLAGS_ALPHA_FIXED_ALL_PIXELS;
+	dispman_alpha.flags = settings.alphaFlags;
 	dispman_alpha.opacity = ofClamp(settings.eglWindowOpacity,0,255);
 	dispman_alpha.mask = 0;
 
@@ -1919,6 +1919,8 @@ bool ofAppEGLWindow::createRPiNativeWindow(const ofRectangle& requestedWindowRec
 			&dispman_clamp, // clamp
 			dispman_transform // transform
 	);
+
+  vc_dispmanx_element_change_layer(dispman_update, dispman_element, settings.layer);
 
 	if(dispman_element == DISPMANX_NO_HANDLE) {
 		ofLogError("ofAppEGLWindow") << "setupRPiNativeWindow(): dispman_element == DISPMANX_NO_HANDLE";

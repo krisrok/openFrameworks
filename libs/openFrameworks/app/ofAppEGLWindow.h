@@ -121,6 +121,10 @@ public:
 		int screenNum;
 		int layer;
 
+#ifdef TARGET_RASPBERRY_PI
+    DISPMANX_FLAGS_ALPHA_T alphaFlags = DISPMANX_FLAGS_ALPHA_FIXED_ALL_PIXELS;
+#endif
+
 		Settings();
 		Settings(const ofGLESWindowSettings & settings);
 	};
